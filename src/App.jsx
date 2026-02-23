@@ -1,7 +1,11 @@
-import "./App.css";
+import { Kanbanboard } from "./Components/Kanbanboard";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <Kanbanboard />
+    </>
+  );
 }
 
 export default App;
