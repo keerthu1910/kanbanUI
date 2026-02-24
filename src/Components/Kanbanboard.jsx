@@ -42,6 +42,17 @@ export const Kanbanboard = () => {
     });
     setTasks(temptasks);
   };
+
+  const handleDrop = (e, newStatus) => {
+    const taskId = e.dataTransfer.getData("taskId");
+
+    const updated = tasks.map((item) =>
+      item.id === taskId ? { ...item, status: newStatus } : item,
+    );
+    console.log(updated);
+    setTasks(updated);
+  };
+
   return (
     <div>
       <p className="font-bold text-3xl text-center ">Kanban Board</p>
@@ -65,7 +76,11 @@ export const Kanbanboard = () => {
         </button>
       </div>
       <div className="flex flex-row justify-evenly">
-        <div className="bg-gray-300 rounded-lg p-5 w-100 h-screen">
+        <div
+          className="bg-gray-300 rounded-lg p-5 w-100 h-screen"
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => handleDrop(e, "todo")}
+        >
           <p className="text-xl font-bold">Todo</p>
           {tasks
             .filter((item) => item.status === "todo")
@@ -77,7 +92,11 @@ export const Kanbanboard = () => {
               />
             ))}
         </div>
-        <div className="bg-gray-300 rounded-lg p-5 w-100 h-screen">
+        <div
+          className="bg-gray-300 rounded-lg p-5 w-100 h-screen"
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => handleDrop(e, "Inprocess")}
+        >
           <p className="text-xl font-bold">In Progress</p>
           {tasks
             .filter((item) => item.status === "Inprocess")
@@ -89,7 +108,11 @@ export const Kanbanboard = () => {
               />
             ))}
         </div>
-        <div className="bg-gray-300 rounded-lg p-5 w-100 h-screen">
+        <div
+          className="bg-gray-300 rounded-lg p-5 w-100 h-screen"
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => handleDrop(e, "Completed")}
+        >
           <p className="text-xl font-bold">Completed</p>
           {tasks
             .filter((item) => item.status === "Completed")
